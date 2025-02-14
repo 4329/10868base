@@ -91,4 +91,13 @@ public class DriveConstants {
         // see https://docs.google.com/document/d/1tyWrXDfMidwYyP_5H4mZyVgaEswhOC35gvdmP-V-5hA/edit#heading=h.61g9ixenznbx
         return 32767 / ticksPerSecond;
     }
+
+
+    // OTOS scalar for linear odometry
+    public static double LINEAR_SCALAR = 1.0;
+
+    // OTOS scalar for angular odometry
+    public static double ANGULAR_SCALAR = 1.0;
+
+
 }
