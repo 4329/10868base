@@ -245,7 +245,7 @@ public final class MecanumDrive {
         voltageSensor = hardwareMap.voltageSensor.iterator().next();
 
         // NO - we don't want this one. localizer = new DriveLocalizer(pose);
-        localizer = new SparkFunOpticalLocalizer(hardwareMap);
+        localizer = new OTOSLocalizer(hardwareMap, pose);
 
         FlightRecorder.write("MECANUM_PARAMS", PARAMS);
     }
