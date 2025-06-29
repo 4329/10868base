@@ -4,6 +4,9 @@ import android.util.Log;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.PoseVelocity2d;
+import com.acmerobotics.roadrunner.Vector2d;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -22,6 +25,9 @@ public class OTOSLocalizerSubsystem extends SubsystemBase {
     private SparkFunOTOS.Pose2D currentPose = new SparkFunOTOS.Pose2D(0, 0, 0);
     private SparkFunOTOS.Pose2D currentVelocity = new SparkFunOTOS.Pose2D(0, 0, 0);
     private SparkFunOTOS.Pose2D currentAccel = new SparkFunOTOS.Pose2D(0, 0, 0);
+
+    private Pose2d currentRoadrunnerPose = new Pose2d(0, 0, 0);
+    private PoseVelocity2d currentRoadrunnerVelocity = new PoseVelocity2d(new Vector2d(0, 0), 0);
 
     private static int ICON_SIZE = 10;
     private static int ORIGIN_X = 0;
@@ -100,7 +106,6 @@ public class OTOSLocalizerSubsystem extends SubsystemBase {
         Log.i("OTOS", String.format("OTOS Firmware Version: v%d.%d", fwVersion.major, fwVersion.minor));
     }
 
-    /*
     public void setPose(Pose2d pose) {
         currentPose = new SparkFunOTOS.Pose2D(pose.position.x, pose.position.y, pose.heading.toDouble());
         otos.resetTracking();
@@ -108,18 +113,17 @@ public class OTOSLocalizerSubsystem extends SubsystemBase {
     }
 
     public Pose2d getPose() {
-        return new Pose2d(currentPose.x, currentPose.y, currentPose.h);
+        return currentRoadrunnerPose;
     }
-     */
 
-    /*
-    public PoseVelocity2d update() {
-        otos.getPosVelAcc(currentPose, currentVelocity, currentAccel);
-        return new PoseVelocity2d(new Vector2d(currentVelocity.x, currentVelocity.y), currentVelocity.h);
+    public PoseVelocity2d getPoseVelocity2d() {
+        return currentRoadrunnerVelocity;
     }
-     */
-    public void update() {
+
+    private void update() {
         otos.getPosVelAcc(currentPose, currentVelocity, currentAccel);
+        this.currentRoadrunnerPose = new Pose2d(currentPose.x, currentPose.y, currentPose.h);
+        this.currentRoadrunnerVelocity = new PoseVelocity2d(new Vector2d(currentVelocity.x, currentVelocity.y), currentVelocity.h);
     }
 
     private String getCurrentPoseString() {
