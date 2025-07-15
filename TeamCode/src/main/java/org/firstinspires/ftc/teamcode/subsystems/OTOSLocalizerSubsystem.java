@@ -13,12 +13,13 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.roadrunner.Drawing;
 
 public class OTOSLocalizerSubsystem extends SubsystemBase {
     private SparkFunOTOS otos;
     private DistanceUnit distanceUnit = DistanceUnit.INCH;
     private double linearScalar = 1.0;
-    private AngleUnit angleUnit = AngleUnit.DEGREES;
+    private AngleUnit angleUnit = AngleUnit.RADIANS;
     private double angularScalar = 1.0;
     private FtcDashboard dashboard;
 
@@ -144,11 +145,15 @@ public class OTOSLocalizerSubsystem extends SubsystemBase {
         double[] yPoints = { currentPose.y - quarterIcon, currentPose.y + halfIcon , currentPose.y - quarterIcon };
 
         TelemetryPacket packet = new TelemetryPacket();
+
+        Drawing.drawRobot(packet.fieldOverlay(), currentRoadrunnerPose);
+        /*
         packet.fieldOverlay()
                 .setFill("black")
                 .setTranslation(ORIGIN_X, ORIGIN_Y)
                 .setRotation(Math.toRadians(currentPose.h))
                 .fillPolygon(xPoints, yPoints);
+         */
 
         dashboard.sendTelemetryPacket(packet);
     }

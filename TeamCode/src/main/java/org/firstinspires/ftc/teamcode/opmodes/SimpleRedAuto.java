@@ -45,7 +45,7 @@ public class SimpleRedAuto extends CommandOpMode {
         MecanumActions actions = new MecanumActions(driveSubsystem, otosLocalizerSubsystem, voltageSubsystem);
         TrajectoryActionBuilder trajBuilder = actions.actionBuilder(startingPose);
         Action firstSplineAction = trajBuilder.splineTo(new Vector2d(48, -24), Math.toRadians(0)).build();
-        Action secondSplineAction = trajBuilder.splineTo(new Vector2d(24, -48), Math.toRadians(90)).build();
+      //  Action secondSplineAction = trajBuilder.splineTo(new Vector2d(24, -48), Math.toRadians(90)).build();
 
         Command auto = new SequentialCommandGroup(
             new ActionCommand(firstSplineAction),
